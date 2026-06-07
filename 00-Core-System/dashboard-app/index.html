@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cymatic OS - Productivity Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>🌊 Cymatic OS</h1>
+                <p class="tagline">Your Life at a Glance</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-refresh" onclick="refreshDashboard()">🔄 Refresh</button>
+                <div class="last-update">Last updated: <span id="lastUpdate">--</span></div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <main class="dashboard-grid">
+
+            <!-- Current Status Card -->
+            <section class="card status-card">
+                <h2>⚡ Current Status</h2>
+                <div class="status-metrics">
+                    <div class="metric">
+                        <label>Energy Level</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill energy" id="energyBar"></div>
+                            <span class="progress-value" id="energyValue">--/10</span>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <label>Stress Level</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill stress" id="stressBar"></div>
+                            <span class="progress-value" id="stressValue">--/10</span>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <label>Emotional Status</label>
+                        <div class="status-badge" id="emotionalStatus">--</div>
+                    </div>
+                    <div class="metric">
+                        <label>Peak Hours</label>
+                        <div class="status-badge" id="peakHours">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Today's Priority Card -->
+            <section class="card priority-card">
+                <h2>🎯 Today's Priority</h2>
+                <div class="priority-content">
+                    <h3 id="todayPriority">--</h3>
+                    <div class="priority-meta">
+                        <span class="deadline" id="todayDeadline">--</span>
+                        <span class="why" id="todayWhy">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Projects Card -->
+            <section class="card projects-card">
+                <h2>🚀 Active Projects</h2>
+                <div class="projects-list" id="projectsList">
+                    <!-- Projects will be dynamically loaded -->
+                </div>
+            </section>
+
+            <!-- This Week Card -->
+            <section class="card week-card">
+                <h2>📅 This Week's Outcomes</h2>
+                <ul class="checklist" id="weekOutcomes">
+                    <!-- Weekly outcomes will be dynamically loaded -->
+                </ul>
+            </section>
+
+            <!-- Blockers Card -->
+            <section class="card blockers-card">
+                <h2>⚠️ Blockers</h2>
+                <ul class="blockers-list" id="blockersList">
+                    <!-- Blockers will be dynamically loaded -->
+                </ul>
+            </section>
+
+            <!-- Quick Actions Card -->
+            <section class="card actions-card">
+                <h2>🎬 Quick Actions</h2>
+                <div class="actions-content">
+                    <h4>High-Impact (&lt; 30 min)</h4>
+                    <ul id="quickActions">
+                        <!-- Quick actions will be dynamically loaded -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Recent Progress Card -->
+            <section class="card progress-card">
+                <h2>📈 Recent Progress</h2>
+                <div class="progress-content">
+                    <h4>Last 7 Days</h4>
+                    <div id="recentActions" class="recent-actions">
+                        <!-- Recent actions will be dynamically loaded -->
+                    </div>
+                    <h4>Key Wins</h4>
+                    <div id="keyWins" class="key-wins">
+                        <!-- Key wins will be dynamically loaded -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insights Card -->
+            <section class="card insights-card">
+                <h2>💡 Insights & Patterns</h2>
+                <div id="insights" class="insights-content">
+                    <!-- Insights will be dynamically loaded -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>Cymatic OS Universal v2.0 | Powered by your Personal Knowledge Vault</p>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

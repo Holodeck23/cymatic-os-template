@@ -1,0 +1,27 @@
+{
+  "name": "cymatic-os-tools",
+  "version": "2.0.0",
+  "description": "CLI tools for Cymatic OS operations",
+  "type": "module",
+  "bin": {
+    "cymatic-dashboard": "./update-dashboard.ts",
+    "cymatic-upgrade": "./system-upgrade.ts"
+  },
+  "scripts": {
+    "dashboard": "tsx update-dashboard.ts",
+    "dashboard:watch": "tsx update-dashboard.ts --watch",
+    "upgrade": "tsx system-upgrade.ts",
+    "setup": "npm install && chmod +x *.ts"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

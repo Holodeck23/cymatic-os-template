@@ -1,0 +1,59 @@
+# Cymatic OS Template - .gitignore
+
+# ===================================
+# PERSONAL DATA (populated by users)
+# ===================================
+# These are populated during onboarding and contain personal info
+# The template files below are committed; user-populated versions are not
+
+# Master prompt with personal context
+00-Core-System/cymatic-master-prompt.md
+
+# Generated onboarding output and user-populated vault files
+01-Knowledge-Vault/*.md
+!01-Knowledge-Vault/README.md
+!01-Knowledge-Vault/templates/
+!01-Knowledge-Vault/templates/*.template.md
+
+# User project notes and local resources
+02-Active-Projects/*.md
+!02-Active-Projects/README.md
+!02-Active-Projects/*.template.md
+03-Resources/**
+!03-Resources/
+!03-Resources/README.md
+!03-Resources/.gitkeep
+
+# Dashboard runtime state
+00-Core-System/dashboard-app/.dashboard-data/
+*.backup
+
+# Claude/local editor state
+.claude/settings.local.json
+
+# ===================================
+# SYSTEM FILES
+# ===================================
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node modules (if dashboard-app is used)
+node_modules/

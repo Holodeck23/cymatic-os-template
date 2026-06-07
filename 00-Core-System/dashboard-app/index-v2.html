@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cymatic OS - Command Center</title>
+    <link rel="stylesheet" href="styles-v2.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>🌊 Cymatic OS</h1>
+            <p class="version">v2.0</p>
+        </div>
+
+        <nav class="nav-menu">
+            <button class="nav-item active" data-view="dashboard">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" data-view="focus">
+                <span class="icon">🎯</span>
+                <span>Focus Mode</span>
+            </button>
+            <button class="nav-item" data-view="projects">
+                <span class="icon">🚀</span>
+                <span>Projects</span>
+            </button>
+            <button class="nav-item" data-view="vault">
+                <span class="icon">🗂️</span>
+                <span>Knowledge Vault</span>
+            </button>
+            <button class="nav-item" data-view="claude">
+                <span class="icon">🤖</span>
+                <span>Claude Code</span>
+            </button>
+            <button class="nav-item" data-view="insights">
+                <span class="icon">💡</span>
+                <span>Insights</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="energy-widget">
+                <label>Energy Level</label>
+                <div class="energy-slider-container">
+                    <input type="range" id="energySlider" min="1" max="10" value="5">
+                    <span id="energyValue">5</span>/10
+                </div>
+            </div>
+            <button class="btn-sync" id="syncBtn">
+                <span>🔄</span> Sync Now
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- Dashboard View -->
+        <div class="view active" id="dashboard-view">
+            <!-- Command Bar -->
+            <div class="command-bar">
+                <div class="current-time" id="currentTime"></div>
+                <div class="quick-stats">
+                    <span class="stat">
+                        <span class="stat-icon">⚡</span>
+                        <span id="quickEnergy">5</span>/10
+                    </span>
+                    <span class="stat">
+                        <span class="stat-icon">📈</span>
+                        <span id="quickProgress">0</span>/3
+                    </span>
+                    <span class="stat stress">
+                        <span class="stat-icon">💥</span>
+                        <span id="quickStress">5</span>/10
+                    </span>
+                </div>
+                <button class="btn-primary" onclick="openQuickCapture()">
+                    <span>⚡</span> Quick Capture
+                </button>
+            </div>
+
+            <!-- Eat the Frog - Most Important Task -->
+            <section class="frog-section">
+                <div class="frog-header">
+                    <h2>🐸 Eat the Frog First</h2>
+                    <p>Your single most important task today</p>
+                </div>
+                <div class="frog-task" id="frogTask">
+                    <div class="frog-content" contenteditable="true" id="frogInput">
+                        Click to set your #1 priority for today
+                    </div>
+                    <div class="frog-meta">
+                        <input type="time" id="frogDeadline" value="18:00">
+                        <button class="btn-complete" onclick="completeFrog()">✓ Complete</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+
+                <!-- Energy-Based Task Buckets -->
+                <section class="card bucket-card">
+                    <h3>⚡ Energy-Based Tasks</h3>
+                    <div class="bucket-tabs">
+                        <button class="bucket-tab active" data-bucket="high">High Energy</button>
+                        <button class="bucket-tab" data-bucket="low">Low Energy</button>
+                        <button class="bucket-tab" data-bucket="creative">Creative</button>
+                    </div>
+                    <div class="bucket-content">
+                        <div class="bucket high active" id="highEnergyBucket">
+                            <div class="add-task-btn" onclick="addTask('high')">+ Add High Energy Task</div>
+                            <ul class="task-list" id="highEnergyTasks"></ul>
+                        </div>
+                        <div class="bucket low" id="lowEnergyBucket">
+                            <div class="add-task-btn" onclick="addTask('low')">+ Add Low Energy Task</div>
+                            <ul class="task-list" id="lowEnergyTasks"></ul>
+                        </div>
+                        <div class="bucket creative" id="creativeBucket">
+                            <div class="add-task-btn" onclick="addTask('creative')">+ Add Creative Task</div>
+                            <ul class="task-list" id="creativeTasks"></ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GTD Inbox -->
+                <section class="card gtd-card">
+                    <h3>📥 GTD Inbox</h3>
+                    <div class="gtd-quick-add">
+                        <input type="text" id="gtdInput" placeholder="Capture anything..."
+                               onkeypress="handleGTDEnter(event)">
+                        <button onclick="captureGTD()">Capture</button>
+                    </div>
+                    <div class="gtd-stats">
+                        <span><strong id="inboxCount">0</strong> to process</span>
+                        <span><strong id="todayCount">0</strong> today</span>
+                        <span><strong id="waitingCount">0</strong> waiting</span>
+                    </div>
+                    <ul class="inbox-list" id="inboxList"></ul>
+                </section>
+
+                <!-- Time Blocks -->
+                <section class="card timeblock-card">
+                    <h3>🕐 Today's Time Blocks</h3>
+                    <div class="timeblock-now" id="currentBlock">
+                        <div class="now-indicator">NOW</div>
+                        <div class="block-details">
+                            <span class="block-time">--:--</span>
+                            <span class="block-task">No active block</span>
+                        </div>
+                    </div>
+                    <div class="timeblock-list" id="timeblockList"></div>
+                    <button class="btn-secondary" onclick="openTimeBlocker()">+ Add Time Block</button>
+                </section>
+
+                <!-- Active Projects (Top 3) -->
+                <section class="card projects-mini">
+                    <h3>🚀 Active Projects</h3>
+                    <div id="projectsMini"></div>
+                    <button class="btn-text" onclick="switchView('projects')">View All →</button>
+                </section>
+
+                <!-- Week Outcomes -->
+                <section class="card week-card">
+                    <h3>📅 This Week's Wins</h3>
+                    <div class="week-progress">
+                        <div class="progress-ring">
+                            <svg width="60" height="60">
+                                <circle cx="30" cy="30" r="25" id="weekRing"></circle>
+                            </svg>
+                            <span class="progress-text" id="weekPercent">0%</span>
+                        </div>
+                        <div class="week-goals">
+                            <ul id="weekGoals"></ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Blockers Alert -->
+                <section class="card blockers-alert">
+                    <h3>⚠️ Blockers</h3>
+                    <div id="blockersList"></div>
+                    <button class="btn-secondary" onclick="addBlocker()">+ Add Blocker</button>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- Focus Mode View -->
+        <div class="view" id="focus-view">
+            <div class="focus-mode">
+                <div class="focus-header">
+                    <h1 id="focusTask">No task selected</h1>
+                    <button class="btn-exit" onclick="switchView('dashboard')">Exit Focus Mode</button>
+                </div>
+                <div class="focus-timer">
+                    <div class="timer-display" id="timerDisplay">25:00</div>
+                    <div class="timer-controls">
+                        <button class="btn-timer" onclick="startTimer()">Start</button>
+                        <button class="btn-timer" onclick="pauseTimer()">Pause</button>
+                        <button class="btn-timer" onclick="resetTimer()">Reset</button>
+                    </div>
+                    <div class="timer-presets">
+                        <button onclick="setTimer(15)">15 min</button>
+                        <button onclick="setTimer(25)">25 min</button>
+                        <button onclick="setTimer(45)">45 min</button>
+                        <button onclick="setTimer(90)">90 min</button>
+                    </div>
+                </div>
+                <div class="focus-notes">
+                    <h3>Focus Notes</h3>
+                    <textarea id="focusNotes" placeholder="Capture thoughts while in flow..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects View -->
+        <div class="view" id="projects-view">
+            <div class="view-header">
+                <h1>🚀 Projects</h1>
+                <button class="btn-primary" onclick="addProject()">+ New Project</button>
+            </div>
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+
+        <!-- Knowledge Vault View -->
+        <div class="view" id="vault-view">
+            <div class="vault-layout">
+                <div class="vault-sidebar">
+                    <h3>Knowledge Vault</h3>
+                    <ul class="vault-tree" id="vaultTree"></ul>
+                </div>
+                <div class="vault-editor">
+                    <div class="editor-header">
+                        <span id="currentFile">Select a file</span>
+                        <button class="btn-save" onclick="saveFile()">Save</button>
+                    </div>
+                    <textarea id="vaultEditor" placeholder="Select a file to edit..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Claude Code View -->
+        <div class="view" id="claude-view">
+            <div class="claude-interface">
+                <div class="claude-header">
+                    <h2>🤖 Claude Code Assistant</h2>
+                    <div class="claude-status">
+                        <span class="status-dot" id="claudeStatus"></span>
+                        <span id="claudeStatusText">Connected</span>
+                    </div>
+                </div>
+
+                <div class="chat-container" id="chatContainer">
+                    <div class="welcome-message">
+                        <h3>Hello! I'm your Cymatic OS Assistant.</h3>
+                        <p>I can help you manage tasks, update your vault, analyze patterns, and more.</p>
+                        <div class="quick-actions">
+                            <button onclick="sendClaudeMessage('Show my current energy patterns')">📊 Energy Analysis</button>
+                            <button onclick="sendClaudeMessage('What should I focus on now?')">🎯 Focus Suggestion</button>
+                            <button onclick="sendClaudeMessage('Update my progress tracker')">📈 Update Progress</button>
+                            <button onclick="sendClaudeMessage('Review my blockers')">⚠️ Review Blockers</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <textarea id="claudeInput" placeholder="Ask Claude anything about your productivity, tasks, or system..."
+                              rows="3" onkeypress="handleClaudeEnter(event)"></textarea>
+                    <button class="btn-send" onclick="sendClaudeMessage()">
+                        <span>Send</span>
+                        <span class="shortcut">⏎</span>
+                    </button>
+                </div>
+
+                <div class="claude-commands">
+                    <h4>Available Commands</h4>
+                    <div class="command-chips" id="commandChips"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights View -->
+        <div class="view" id="insights-view">
+            <div class="view-header">
+                <h1>💡 Insights & Patterns</h1>
+                <select id="insightPeriod">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                </select>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>Energy Patterns</h3>
+                    <canvas id="energyChart"></canvas>
+                </div>
+                <div class="insight-card">
+                    <h3>Task Completion Rate</h3>
+                    <div id="completionStats"></div>
+                </div>
+                <div class="insight-card">
+                    <h3>Focus Time Analysis</h3>
+                    <div id="focusStats"></div>
+                </div>
+                <div class="insight-card">
+                    <h3>AI Recommendations</h3>
+                    <div id="aiRecommendations"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Quick Capture Modal -->
+    <div class="modal" id="quickCaptureModal">
+        <div class="modal-content">
+            <h3>⚡ Quick Capture</h3>
+            <textarea id="quickCaptureInput" placeholder="What's on your mind?" autofocus></textarea>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeQuickCapture()">Cancel</button>
+                <button class="btn-primary" onclick="saveQuickCapture()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app-v2.js"></script>
+</body>
+</html>

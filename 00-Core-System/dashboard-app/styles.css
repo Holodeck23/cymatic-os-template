@@ -1,0 +1,429 @@
+/* Cymatic OS Dashboard Styles */
+
+:root {
+    /* Color Palette */
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #8b5cf6;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #06b6d4;
+
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #334155;
+    --bg-hover: #475569;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --border: #475569;
+    --shadow: rgba(0, 0, 0, 0.3);
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, #1a1f35 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+}
+
+.dashboard-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.btn-refresh {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-refresh:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.last-update {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Card Styles */
+.card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 6px var(--shadow);
+    transition: all 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px var(--shadow);
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--border);
+    color: var(--text-primary);
+}
+
+.card h4 {
+    font-size: 1rem;
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+}
+
+/* Status Card */
+.status-card {
+    grid-column: span 2;
+}
+
+.status-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.metric label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+}
+
+.progress-bar {
+    position: relative;
+    height: 2rem;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    border-radius: var(--radius-md);
+}
+
+.progress-fill.energy {
+    background: linear-gradient(90deg, var(--success) 0%, var(--info) 100%);
+}
+
+.progress-fill.stress {
+    background: linear-gradient(90deg, var(--warning) 0%, var(--danger) 100%);
+}
+
+.progress-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.status-badge {
+    background: var(--bg-card);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    display: inline-block;
+}
+
+/* Priority Card */
+.priority-card {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, #2d1f47 100%);
+    border-color: var(--secondary);
+}
+
+.priority-content h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.priority-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.deadline, .why {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.deadline::before {
+    content: "⏰ ";
+}
+
+.why::before {
+    content: "💡 ";
+}
+
+/* Projects Card */
+.projects-card {
+    grid-column: span 3;
+}
+
+.projects-list {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.project-item {
+    background: var(--bg-card);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary);
+}
+
+.project-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.project-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    font-size: 0.85rem;
+}
+
+.project-meta-item {
+    color: var(--text-secondary);
+}
+
+.project-meta-item strong {
+    color: var(--text-primary);
+}
+
+.impact-high { color: var(--success); }
+.impact-medium { color: var(--warning); }
+.impact-low { color: var(--info); }
+
+/* Week Card */
+.week-card {
+    grid-column: span 2;
+}
+
+.checklist {
+    list-style: none;
+}
+
+.checklist li {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.checklist li::before {
+    content: "☐";
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.checklist li.completed::before {
+    content: "☑";
+    color: var(--success);
+}
+
+/* Blockers Card */
+.blockers-list {
+    list-style: none;
+}
+
+.blockers-list li {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--danger);
+}
+
+/* Actions Card */
+.actions-card {
+    grid-column: span 2;
+}
+
+.actions-content ul {
+    list-style: none;
+}
+
+.actions-content li {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.actions-content li:hover {
+    background: var(--bg-hover);
+    transform: translateX(4px);
+}
+
+.actions-content li::before {
+    content: "→ ";
+    color: var(--primary);
+}
+
+/* Progress Card */
+.progress-card {
+    grid-column: span 2;
+}
+
+.recent-actions, .key-wins {
+    margin-bottom: var(--spacing-md);
+}
+
+.recent-actions p, .key-wins p {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Insights Card */
+.insights-card {
+    grid-column: span 3;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, #1f3a2d 100%);
+    border-color: var(--info);
+}
+
+.insights-content {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* Footer */
+.dashboard-footer {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-md);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        grid-column: span 1 !important;
+    }
+
+    .status-card, .priority-card, .projects-card, .insights-card {
+        grid-column: span 2 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        grid-column: span 1 !important;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .status-metrics {
+        grid-template-columns: 1fr;
+    }
+}

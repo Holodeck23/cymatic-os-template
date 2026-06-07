@@ -1,0 +1,272 @@
+{
+  "version": "2.0.0",
+  "description": "Enhanced routing table with semantic keywords and priority levels",
+  "routing_config": {
+    "min_confidence_threshold": 0.5,
+    "priority_boost": {
+      "high": 0.2,
+      "medium": 0.1,
+      "low": 0.0
+    },
+    "exact_match_confidence": 1.0,
+    "semantic_match_weight": 0.7,
+    "keyword_match_weight": 0.3
+  },
+  "routes": [
+    {
+      "patterns": [
+        "journal",
+        "reflect",
+        "check in",
+        "how am i doing",
+        "current state",
+        "energy check"
+      ],
+      "semantic_keywords": ["feeling", "state", "energy", "mood", "check", "status"],
+      "skill": "journal",
+      "workflow": "quick-checkin",
+      "priority": "high",
+      "priority_score": 10,
+      "description": "Quick daily check-in for energy, stress, and priority",
+      "example_inputs": [
+        "how am i doing today",
+        "quick energy check",
+        "what's my current state"
+      ]
+    },
+    {
+      "patterns": [
+        "journal deep",
+        "deep reflection",
+        "reflect deeply",
+        "what did i learn",
+        "weekly reflection"
+      ],
+      "skill": "journal",
+      "workflow": "deep-reflection",
+      "priority": "high",
+      "description": "Extended reflection session with pattern analysis"
+    },
+    {
+      "patterns": [
+        "upgrade",
+        "improve system",
+        "self-improve",
+        "update os",
+        "check for updates",
+        "system improvements"
+      ],
+      "skill": "system-upgrade",
+      "workflow": "analyze",
+      "priority": "high",
+      "description": "Analyze system and generate upgrade proposals"
+    },
+    {
+      "patterns": [
+        "sync dashboard",
+        "update dashboard",
+        "refresh dashboard",
+        "sync data"
+      ],
+      "skill": "dashboard",
+      "workflow": "sync",
+      "priority": "high",
+      "description": "Synchronize Knowledge Vault to dashboard data"
+    },
+    {
+      "patterns": [
+        "focus",
+        "what should i do",
+        "highest priority",
+        "what's most important",
+        "next action",
+        "what to work on"
+      ],
+      "skill": "focus",
+      "workflow": "priority-analysis",
+      "priority": "high",
+      "description": "Determine single highest-impact action"
+    },
+    {
+      "patterns": [
+        "harvest",
+        "extract insights",
+        "process notes",
+        "analyze conversation",
+        "capture insights"
+      ],
+      "skill": "harvest",
+      "workflow": "extract-insights",
+      "priority": "medium",
+      "description": "Extract insights from data source"
+    },
+    {
+      "patterns": [
+        "review",
+        "analyze last week",
+        "what did we accomplish",
+        "lessons learned",
+        "review progress"
+      ],
+      "skill": "review",
+      "workflow": "period-analysis",
+      "priority": "medium",
+      "description": "Analyze recent decisions and outcomes"
+    },
+    {
+      "patterns": [
+        "revenue scan",
+        "revenue analysis",
+        "financial overview",
+        "income analysis",
+        "money check"
+      ],
+      "skill": "intelligence",
+      "workflow": "revenue-analysis",
+      "priority": "medium",
+      "description": "Comprehensive revenue analysis and optimization"
+    },
+    {
+      "patterns": [
+        "market intel",
+        "market research",
+        "competitive analysis",
+        "market opportunity",
+        "competitor check"
+      ],
+      "skill": "intelligence",
+      "workflow": "market-intelligence",
+      "priority": "medium",
+      "description": "Market research and competitive intelligence"
+    },
+    {
+      "patterns": [
+        "risk assess",
+        "risk analysis",
+        "what could go wrong",
+        "evaluate risks",
+        "risk check"
+      ],
+      "skill": "intelligence",
+      "workflow": "risk-assessment",
+      "priority": "medium",
+      "description": "Risk evaluation and mitigation planning"
+    },
+    {
+      "patterns": [
+        "plan",
+        "make a plan",
+        "create plan",
+        "implementation plan",
+        "how to achieve"
+      ],
+      "skill": "execution",
+      "workflow": "planning",
+      "priority": "medium",
+      "description": "Create detailed implementation plan"
+    },
+    {
+      "patterns": [
+        "unblock",
+        "remove blocker",
+        "stuck",
+        "what's blocking me",
+        "resolve obstacle"
+      ],
+      "skill": "execution",
+      "workflow": "blocker-resolution",
+      "priority": "high",
+      "description": "Identify and resolve obstacles"
+    },
+    {
+      "patterns": [
+        "decide",
+        "make decision",
+        "help me choose",
+        "should i",
+        "decision help"
+      ],
+      "skill": "execution",
+      "workflow": "decision-making",
+      "priority": "medium",
+      "description": "Process complex decisions"
+    },
+    {
+      "patterns": [
+        "calibrate",
+        "adjust communication",
+        "communication style",
+        "improve responses"
+      ],
+      "skill": "system",
+      "workflow": "calibration",
+      "priority": "low",
+      "description": "Adjust AI responses based on feedback"
+    },
+    {
+      "patterns": [
+        "sync projects",
+        "update projects",
+        "project status",
+        "sync all"
+      ],
+      "skill": "execution",
+      "workflow": "project-sync",
+      "priority": "medium",
+      "description": "Synchronize all project statuses"
+    }
+  ],
+  "fallback": {
+    "skill": "general",
+    "workflow": "chat",
+    "description": "General conversation when no specific route matches"
+  },
+  "interventions": [
+    {
+      "trigger": "::cash_flow",
+      "description": "Force revenue thinking",
+      "action": "Reorient conversation to revenue impact and prioritization"
+    },
+    {
+      "trigger": "::break_loop",
+      "description": "Break analysis paralysis",
+      "action": "Force decision within specified timeframe using decision framework"
+    },
+    {
+      "trigger": "::focus_lock",
+      "description": "Shiny object prevention",
+      "action": "Capture new idea, redirect to current priority task"
+    },
+    {
+      "trigger": "::authenticity_check",
+      "description": "Values alignment validation",
+      "action": "Compare proposed action against identity-profile.md core values"
+    },
+    {
+      "trigger": "::identity_evolution",
+      "description": "Challenge limiting beliefs",
+      "action": "Identify and question self-limiting narratives"
+    },
+    {
+      "trigger": "::daily_start",
+      "description": "Morning activation",
+      "action": "Execute morning routine: journal-quick + focus + sync"
+    },
+    {
+      "trigger": "::weekly_plan",
+      "description": "Weekly planning",
+      "action": "Execute weekly planning: review + plan + revenue-scan"
+    },
+    {
+      "trigger": "::values_checkpoint",
+      "description": "Monthly authenticity check",
+      "action": "Review recent decisions against core values and identity"
+    }
+  ],
+  "metadata": {
+    "created": "2025-12-20",
+    "last_updated": "2025-12-20",
+    "total_routes": 15,
+    "total_interventions": 8
+  }
+}
